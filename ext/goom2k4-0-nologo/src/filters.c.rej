@@ -1,0 +1,31 @@
+***************
+*** 427,439 ****
+          brutSmypos = brutS[myPos2];
+          py = brutSmypos + (((brutD[myPos2] - brutSmypos) * buffratio) >> BUFFPOINTNB);
+  
+          pos = ((px >> PERTEDEC) + prevX * (py >> PERTEDEC));
+          /* coef en modulo 15 */
+          coeffs = precalCoef[px & PERTEMASK][py & PERTEMASK];
+- 
+-         if ((py >= (signed int)ay) || (px >= (signed int)ax)) {
+-             pos = coeffs = 0;
+-         }
+  
+          getPixelRGB_ (expix1, pos, &col1);
+          getPixelRGB_ (expix1, pos + 1, &col2);
+--- 427,441 ----
+          brutSmypos = brutS[myPos2];
+          py = brutSmypos + (((brutD[myPos2] - brutSmypos) * buffratio) >> BUFFPOINTNB);
+  
++ 
++         if ((py >= ay) || (px >= ax)) {
++             pos = coeffs = 0;
++         } else {
+          pos = ((px >> PERTEDEC) + prevX * (py >> PERTEDEC));
+          /* coef en modulo 15 */
+          coeffs = precalCoef[px & PERTEMASK][py & PERTEMASK];
++        }
++ 
+  
+          getPixelRGB_ (expix1, pos, &col1);
+          getPixelRGB_ (expix1, pos + 1, &col2);

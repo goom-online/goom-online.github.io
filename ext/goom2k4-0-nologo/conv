@@ -1,0 +1,407 @@
+./src/filters.c:39:    *(buffer + (x + y * goomInfo->screen.width)) = i;
+./src/filters.c:51:    Pixel i = *(buffer + (x + y * goomInfo->screen.width));
+./src/filters.c:289:         yy = y + goom_irand(goomInfo->gRandom, 4) - goom_irand(goomInfo->gRandom, 4) + data->wave / 10;
+./src/filters.c:292:         if (yy >= (signed int)goomInfo->screen.height)
+./src/filters.c:293:             yy = goomInfo->screen.height - 1;
+./src/filters.c:298:         data->wavesp += goom_irand(goomInfo->gRandom, 3) - goom_irand(goomInfo->gRandom, 3);
+./src/filters.c:303:         data->wave += (data->wavesp / 10) + goom_irand(goomInfo->gRandom, 3) - goom_irand(goomInfo->gRandom, 3);
+./src/filters.c:314:             x += goom_irand(goomInfo->gRandom, data->noisify) - goom_irand(goomInfo->gRandom, data->noisify);
+./src/filters.c:315:             y += goom_irand(goomInfo->gRandom, data->noisify) - goom_irand(goomInfo->gRandom, data->noisify);
+./src/filters.c:329:             ShiftRight (goomInfo->sintable
+./src/filters.c:335:             vx += ShiftRight (goomInfo->sintable[(-vy + dist) & 0xffff], 1);
+./src/filters.c:336:             vy += ShiftRight (goomInfo->sintable[(vx + dist) & 0xffff], 1);
+./src/filters.c:347:                 ShiftRight (goomInfo->sintable
+./src/filters.c:361:                 vx = vx + ShiftRight (goomInfo->sintable[(-vy + dist) & 0xffff], 1);
+./src/filters.c:362:                 vy = vy + ShiftRight (goomInfo->sintable[(vx + dist) & 0xffff], 1);
+./src/filters.c:366:                 vx + ShiftRight (goomInfo->sintable[(-ShiftRight (vy, 1) + dist) & 0xffff], 0);
+./src/filters.c:368:                     vy + ShiftRight (goomInfo->sintable[(ShiftRight (vx, 1) + dist) & 0xffff], 0);
+./src/filters.c:372:                 fvitesse *= 1024 + ShiftRight (goomInfo->sintable[vy & 0xffff], 6);
+./src/filters.c:471:    int decc = goom_irand(goomInfo->gRandom, 8) - 4;
+./src/filters.c:472:    int spdc = goom_irand(goomInfo->gRandom, 8) - 4;
+./src/filters.c:473:    int accel = goom_irand(goomInfo->gRandom, 8) - 4;
+./src/filters.c:480:        spdc += goom_irand(goomInfo->gRandom, 3) - goom_irand(goomInfo->gRandom, 3);
+./src/filters.c:488:            spdc = spdc - goom_irand(goomInfo->gRandom, 3) + accel / 10;
+./src/filters.c:490:            spdc = spdc + goom_irand(goomInfo->gRandom, 3) + accel / 10;
+./src/filters.c:493:            spdc -= goom_irand(goomInfo->gRandom, 3) - 2;
+./src/filters.c:496:            spdc += goom_irand(goomInfo->gRandom, 3) + 2;
+./src/filters.c:501:        accel += goom_irand(goomInfo->gRandom, 2) - goom_irand(goomInfo->gRandom, 2);
+./src/filters.c:528:    ZoomFilterFXWrapperData *data = (ZoomFilterFXWrapperData*)goomInfo->zoomFilter_fx.fx_data;
+./src/filters.c:643:    goomInfo->methods.zoom_filter (data->prevX, data->prevY, pix1, pix2,
+./src/filters.c:755:    Uint x = (Uint) ((int) (goomInfo->screen.width / 2)
+./src/filters.c:757:    Uint y = (Uint) ((int) (goomInfo->screen.height/2)
+./src/filters.c:760:    if ((x > 1) && (y > 1) && (x < goomInfo->screen.width - 2) && (y < goomInfo->screen.height - 2)) {
+./src/goom_core.c:42:    goomInfo->pixel = (guint32 *) malloc (buffsize * sizeof (guint32) + 128);
+./src/goom_core.c:43:    bzero (goomInfo->pixel, buffsize * sizeof (guint32) + 128);
+./src/goom_core.c:44:    goomInfo->back = (guint32 *) malloc (buffsize * sizeof (guint32) + 128);
+./src/goom_core.c:45:    bzero (goomInfo->back, buffsize * sizeof (guint32) + 128);
+./src/goom_core.c:46:    //goomInfo->conv = (Pixel *) malloc (buffsize * sizeof (guint32) + 128);
+./src/goom_core.c:47:    //bzero (goomInfo->conv, buffsize * sizeof (guint32) + 128);
+./src/goom_core.c:49:    //goomInfo->outputBuf = goomInfo->conv;
+./src/goom_core.c:51:    goomInfo->p1 = (Pixel *) ((1 + ((uintptr_t) (goomInfo->pixel)) / 128) * 128);
+./src/goom_core.c:52:    goomInfo->p2 = (Pixel *) ((1 + ((uintptr_t) (goomInfo->back)) / 128) * 128);
+./src/goom_core.c:68:    goomInfo->star_fx = flying_star_create();
+./src/goom_core.c:69:    goomInfo->star_fx.init(&goomInfo->star_fx, goomInfo);
+./src/goom_core.c:71:    goomInfo->zoomFilter_fx = zoomFilterVisualFXWrapper_create ();
+./src/goom_core.c:72:    goomInfo->zoomFilter_fx.init(&goomInfo->zoomFilter_fx, goomInfo);
+./src/goom_core.c:74:    goomInfo->tentacles_fx = tentacle_fx_create();
+./src/goom_core.c:75:    goomInfo->tentacles_fx.init(&goomInfo->tentacles_fx, goomInfo);
+./src/goom_core.c:77:    goomInfo->convolve_fx = convolve_create();
+./src/goom_core.c:78:    goomInfo->convolve_fx.init(&goomInfo->convolve_fx, goomInfo);
+./src/goom_core.c:80:    plugin_info_add_visual (goomInfo, 0, &goomInfo->zoomFilter_fx);
+./src/goom_core.c:81:    plugin_info_add_visual (goomInfo, 1, &goomInfo->tentacles_fx);
+./src/goom_core.c:82:    plugin_info_add_visual (goomInfo, 2, &goomInfo->star_fx);
+./src/goom_core.c:83:    plugin_info_add_visual (goomInfo, 3, &goomInfo->convolve_fx);
+./src/goom_core.c:85:    goomInfo->screen.width = resx;
+./src/goom_core.c:86:    goomInfo->screen.height = resy;
+./src/goom_core.c:87:    goomInfo->screen.size = resx * resy;
+./src/goom_core.c:89:    init_buffers(goomInfo, goomInfo->screen.size);
+./src/goom_core.c:90:    goomInfo->gRandom = goom_random_init((uintptr_t)goomInfo->pixel);
+./src/goom_core.c:92:    goomInfo->cycle = 0;
+./src/goom_core.c:94:    goomInfo->ifs_fx = ifs_visualfx_create();
+./src/goom_core.c:95:    goomInfo->ifs_fx.init(&goomInfo->ifs_fx, goomInfo);
+./src/goom_core.c:97:    goomInfo->gmline1 = goom_lines_init (goomInfo, resx, goomInfo->screen.height,
+./src/goom_core.c:98:                                         GML_HLINE, goomInfo->screen.height, GML_BLACK,
+./src/goom_core.c:99:                                         GML_CIRCLE, 0.4f * (float) goomInfo->screen.height, GML_VERT);
+./src/goom_core.c:100:    goomInfo->gmline2 = goom_lines_init (goomInfo, resx, goomInfo->screen.height,
+./src/goom_core.c:102:                                         GML_CIRCLE, 0.2f * (float) goomInfo->screen.height, GML_RED);
+./src/goom_core.c:106:    /* goom_set_main_script(goomInfo, goomInfo->main_script_str); */
+./src/goom_core.c:115:    free (goomInfo->pixel);
+./src/goom_core.c:116:    free (goomInfo->back);
+./src/goom_core.c:117:    free (goomInfo->conv);
+./src/goom_core.c:119:    goomInfo->screen.width = resx;
+./src/goom_core.c:120:    goomInfo->screen.height = resy;
+./src/goom_core.c:121:    goomInfo->screen.size = resx * resy;
+./src/goom_core.c:123:    init_buffers(goomInfo, goomInfo->screen.size);
+./src/goom_core.c:125:    /* init_ifs (goomInfo, resx, goomInfo->screen.height); */
+./src/goom_core.c:126:    goomInfo->ifs_fx.free(&goomInfo->ifs_fx);
+./src/goom_core.c:127:    goomInfo->ifs_fx.init(&goomInfo->ifs_fx, goomInfo);
+./src/goom_core.c:129:    goom_lines_set_res (goomInfo->gmline1, resx, goomInfo->screen.height);
+./src/goom_core.c:130:    goom_lines_set_res (goomInfo->gmline2, resx, goomInfo->screen.height);
+./src/goom_core.c:135:  goomInfo->outputBuf = (Pixel*)buffer;
+./src/goom_core.c:158:    pointWidth = (goomInfo->screen.width * 2) / 5;
+./src/goom_core.c:159:    pointHeight = ((goomInfo->screen.height) * 2) / 5;
+./src/goom_core.c:162:    evaluate_sound (data, &(goomInfo->sound));
+./src/goom_core.c:167:    largfactor = goomInfo->sound.speedvar / 150.0f + goomInfo->sound.volume / 1.5f;
+./src/goom_core.c:172:    goomInfo->update.decay_ifs--;
+./src/goom_core.c:173:    if (goomInfo->update.decay_ifs > 0)
+./src/goom_core.c:174:        goomInfo->update.ifs_incr += 2;
+./src/goom_core.c:175:    if (goomInfo->update.decay_ifs == 0)
+./src/goom_core.c:176:        goomInfo->update.ifs_incr = 0;
+./src/goom_core.c:178:    if (goomInfo->update.recay_ifs) {
+./src/goom_core.c:179:        goomInfo->update.ifs_incr -= 2;
+./src/goom_core.c:180:        goomInfo->update.recay_ifs--;
+./src/goom_core.c:181:        if ((goomInfo->update.recay_ifs == 0)&&(goomInfo->update.ifs_incr<=0))
+./src/goom_core.c:182:            goomInfo->update.ifs_incr = 1;
+./src/goom_core.c:185:    if (goomInfo->update.ifs_incr > 0)
+./src/goom_core.c:186:        goomInfo->ifs_fx.apply(&goomInfo->ifs_fx, goomInfo->p2, goomInfo->p1, goomInfo);
+./src/goom_core.c:188:    if (goomInfo->curGState->drawPoints) {
+./src/goom_core.c:189:        for (i = 1; i * 15 <= goomInfo->sound.speedvar*80.0f + 15; i++) {
+./src/goom_core.c:190:            goomInfo->update.loopvar += goomInfo->sound.speedvar*50 + 1;
+./src/goom_core.c:192:            pointFilter (goomInfo, goomInfo->p1,
+./src/goom_core.c:196:                         i * 152.0f, 128.0f, goomInfo->update.loopvar + i * 2032);
+./src/goom_core.c:197:            pointFilter (goomInfo, goomInfo->p1, ORANGE,
+./src/goom_core.c:200:                         96.0f, i * 80.0f, goomInfo->update.loopvar / i);
+./src/goom_core.c:201:            pointFilter (goomInfo, goomInfo->p1, VIOLET,
+./src/goom_core.c:204:                         i + 122.0f, 134.0f, goomInfo->update.loopvar / i);
+./src/goom_core.c:205:            pointFilter (goomInfo, goomInfo->p1, BLACK,
+./src/goom_core.c:208:                         58.0f, i * 66.0f, goomInfo->update.loopvar / i);
+./src/goom_core.c:209:            pointFilter (goomInfo, goomInfo->p1, WHITE,
+./src/goom_core.c:212:                         66.0f, 74.0f, goomInfo->update.loopvar + i * 500);
+./src/goom_core.c:232:    if (--goomInfo->update.lockvar < 0)
+./src/goom_core.c:233:        goomInfo->update.lockvar = 0;
+./src/goom_core.c:236:    if ((goomInfo->sound.timeSinceLastGoom == 0)
+./src/goom_core.c:238:        || (goomInfo->update.cyclesSinceLastChange > TIME_BTW_CHG)) {
+./src/goom_core.c:241:        if (goom_irand(goomInfo->gRandom,16) == 0)
+./src/goom_core.c:242:            switch (goom_irand(goomInfo->gRandom,34)) {
+./src/goom_core.c:245:                    goomInfo->update.zoomFilterData.hypercosEffect = goom_irand(goomInfo->gRandom,2);
+./src/goom_core.c:249:                    goomInfo->update.zoomFilterData.mode = WAVE_MODE;
+./src/goom_core.c:250:                    goomInfo->update.zoomFilterData.reverse = 0;
+./src/goom_core.c:251:                    goomInfo->update.zoomFilterData.waveEffect = (goom_irand(goomInfo->gRandom,3) == 0);
+./src/goom_core.c:252:                    if (goom_irand(goomInfo->gRandom,2))
+./src/goom_core.c:253:                        goomInfo->update.zoomFilterData.vitesse = (goomInfo->update.zoomFilterData.vitesse + 127) >> 1;
+./src/goom_core.c:257:                    goomInfo->update.zoomFilterData.mode = CRYSTAL_BALL_MODE;
+./src/goom_core.c:258:                    goomInfo->update.zoomFilterData.waveEffect = 0;
+./src/goom_core.c:259:                    goomInfo->update.zoomFilterData.hypercosEffect = 0;
+./src/goom_core.c:263:                    goomInfo->update.zoomFilterData.mode = AMULETTE_MODE;
+./src/goom_core.c:264:                    goomInfo->update.zoomFilterData.waveEffect = 0;
+./src/goom_core.c:265:                    goomInfo->update.zoomFilterData.hypercosEffect = 0;
+./src/goom_core.c:268:                    goomInfo->update.zoomFilterData.mode = WATER_MODE;
+./src/goom_core.c:269:                    goomInfo->update.zoomFilterData.waveEffect = 0;
+./src/goom_core.c:270:                    goomInfo->update.zoomFilterData.hypercosEffect = 0;
+./src/goom_core.c:274:                    goomInfo->update.zoomFilterData.mode = SCRUNCH_MODE;
+./src/goom_core.c:275:                    goomInfo->update.zoomFilterData.waveEffect = 0;
+./src/goom_core.c:276:                    goomInfo->update.zoomFilterData.hypercosEffect = 0;
+./src/goom_core.c:281:                    goomInfo->update.zoomFilterData.mode = HYPERCOS1_MODE;
+./src/goom_core.c:282:                    goomInfo->update.zoomFilterData.waveEffect = 0;
+./src/goom_core.c:283:                    goomInfo->update.zoomFilterData.hypercosEffect = (goom_irand(goomInfo->gRandom,3) == 0);
+./src/goom_core.c:287:                    goomInfo->update.zoomFilterData.mode = HYPERCOS2_MODE;
+./src/goom_core.c:288:                    goomInfo->update.zoomFilterData.waveEffect = 0;
+./src/goom_core.c:289:                    goomInfo->update.zoomFilterData.hypercosEffect = 0;
+./src/goom_core.c:293:                    goomInfo->update.zoomFilterData.mode = CRYSTAL_BALL_MODE;
+./src/goom_core.c:294:                    goomInfo->update.zoomFilterData.waveEffect = (goom_irand(goomInfo->gRandom,4) == 0);
+./src/goom_core.c:295:                    goomInfo->update.zoomFilterData.hypercosEffect = goom_irand(goomInfo->gRandom,2);
+./src/goom_core.c:300:                    goomInfo->update.zoomFilterData.mode = SCRUNCH_MODE;
+./src/goom_core.c:301:                    goomInfo->update.zoomFilterData.waveEffect = 1;
+./src/goom_core.c:302:                    goomInfo->update.zoomFilterData.hypercosEffect = 1;
+./src/goom_core.c:306:                    goomInfo->update.zoomFilterData.mode = YONLY_MODE;
+./src/goom_core.c:311:                    goomInfo->update.zoomFilterData.mode = SPEEDWAY_MODE;
+./src/goom_core.c:314:                    goomInfo->update.zoomFilterData.mode = NORMAL_MODE;
+./src/goom_core.c:315:                    goomInfo->update.zoomFilterData.waveEffect = 0;
+./src/goom_core.c:316:                    goomInfo->update.zoomFilterData.hypercosEffect = 0;
+./src/goom_core.c:321:        if (goomInfo->update.lockvar == 0) {
+./src/goom_core.c:324:            if (goomInfo->sound.timeSinceLastGoom == 0) {
+./src/goom_core.c:327:                goomInfo->update.goomvar++;
+./src/goom_core.c:330:                if ((!goomInfo->update.stateSelectionBlocker)&&(goom_irand(goomInfo->gRandom,3))) {
+./src/goom_core.c:331:                    goomInfo->update.stateSelectionRnd = goom_irand(goomInfo->gRandom,goomInfo->statesRangeMax);
+./src/goom_core.c:332:                    goomInfo->update.stateSelectionBlocker = 3;
+./src/goom_core.c:334:                else if (goomInfo->update.stateSelectionBlocker) goomInfo->update.stateSelectionBlocker--;
+./src/goom_core.c:336:                for (i=0;i<goomInfo->statesNumber;i++)
+./src/goom_core.c:337:                    if ((goomInfo->update.stateSelectionRnd >= goomInfo->states[i].rangemin)
+./src/goom_core.c:338:                        && (goomInfo->update.stateSelectionRnd <= goomInfo->states[i].rangemax))
+./src/goom_core.c:339:                        goomInfo->curGState = &(goomInfo->states[i]);
+./src/goom_core.c:341:                if ((goomInfo->curGState->drawIFS) && (goomInfo->update.ifs_incr<=0)) {
+./src/goom_core.c:342:                    goomInfo->update.recay_ifs = 5;
+./src/goom_core.c:343:                    goomInfo->update.ifs_incr = 11;
+./src/goom_core.c:346:                if ((!goomInfo->curGState->drawIFS) && (goomInfo->update.ifs_incr>0) && (goomInfo->update.decay_ifs<=0))
+./src/goom_core.c:347:                    goomInfo->update.decay_ifs = 100;
+./src/goom_core.c:349:                if (!goomInfo->curGState->drawScope)
+./src/goom_core.c:350:                    goomInfo->update.stop_lines = 0xf000 & 5;
+./src/goom_core.c:352:                if (!goomInfo->curGState->drawScope) {
+./src/goom_core.c:353:                    goomInfo->update.stop_lines = 0;			
+./src/goom_core.c:354:                    goomInfo->update.lineMode = goomInfo->update.drawLinesDuration;
+./src/goom_core.c:357:                /* if (goomInfo->update.goomvar % 1 == 0) */
+./src/goom_core.c:362:                    goomInfo->update.lockvar = 50;
+./src/goom_core.c:363:                    newvit = STOP_SPEED + 1 - ((float)3.5f * log10(goomInfo->sound.speedvar * 60 + 1));
+./src/goom_core.c:365:                    if ((goomInfo->update.zoomFilterData.reverse) && (!(goomInfo->cycle % 13)) && (rand () % 5 == 0)) {
+./src/goom_core.c:366:                        goomInfo->update.zoomFilterData.reverse = 0;
+./src/goom_core.c:367:                        goomInfo->update.zoomFilterData.vitesse = STOP_SPEED - 2;
+./src/goom_core.c:368:                        goomInfo->update.lockvar = 75;
+./src/goom_core.c:370:                    if (goom_irand(goomInfo->gRandom,10) == 0) {
+./src/goom_core.c:371:                        goomInfo->update.zoomFilterData.reverse = 1;
+./src/goom_core.c:372:                        goomInfo->update.lockvar = 100;
+./src/goom_core.c:375:                    if (goom_irand(goomInfo->gRandom,10) == 0)
+./src/goom_core.c:376:                        goomInfo->update.zoomFilterData.vitesse = STOP_SPEED - 1;
+./src/goom_core.c:377:                    if (goom_irand(goomInfo->gRandom,12) == 0)
+./src/goom_core.c:378:                        goomInfo->update.zoomFilterData.vitesse = STOP_SPEED + 1;
+./src/goom_core.c:381:                    switch (goom_irand(goomInfo->gRandom,25)) {
+./src/goom_core.c:385:                            goomInfo->update.zoomFilterData.middleY = goomInfo->screen.height - 1;
+./src/goom_core.c:386:                            goomInfo->update.zoomFilterData.middleX = goomInfo->screen.width / 2;
+./src/goom_core.c:390:                            goomInfo->update.zoomFilterData.middleX = goomInfo->screen.width - 1;
+./src/goom_core.c:394:                            goomInfo->update.zoomFilterData.middleX = 1;
+./src/goom_core.c:397:                            goomInfo->update.zoomFilterData.middleY = goomInfo->screen.height / 2;
+./src/goom_core.c:398:                            goomInfo->update.zoomFilterData.middleX = goomInfo->screen.width / 2;
+./src/goom_core.c:401:                    if ((goomInfo->update.zoomFilterData.mode == WATER_MODE)
+./src/goom_core.c:402:                        || (goomInfo->update.zoomFilterData.mode == YONLY_MODE)
+./src/goom_core.c:403:                        || (goomInfo->update.zoomFilterData.mode == AMULETTE_MODE)) {
+./src/goom_core.c:404:                        goomInfo->update.zoomFilterData.middleX = goomInfo->screen.width / 2;
+./src/goom_core.c:405:                        goomInfo->update.zoomFilterData.middleY = goomInfo->screen.height / 2;
+./src/goom_core.c:408:                    switch (vtmp = (goom_irand(goomInfo->gRandom,15))) {
+./src/goom_core.c:410:                            goomInfo->update.zoomFilterData.vPlaneEffect = goom_irand(goomInfo->gRandom,3)
+./src/goom_core.c:411:                            - goom_irand(goomInfo->gRandom,3);
+./src/goom_core.c:412:                            goomInfo->update.zoomFilterData.hPlaneEffect = goom_irand(goomInfo->gRandom,3)
+./src/goom_core.c:413:                                - goom_irand(goomInfo->gRandom,3);
+./src/goom_core.c:416:                            goomInfo->update.zoomFilterData.vPlaneEffect = 0;
+./src/goom_core.c:417:                            goomInfo->update.zoomFilterData.hPlaneEffect = goom_irand(goomInfo->gRandom,8)
+./src/goom_core.c:418:                                - goom_irand(goomInfo->gRandom,8);
+./src/goom_core.c:424:                            goomInfo->update.zoomFilterData.vPlaneEffect = goom_irand(goomInfo->gRandom,5)
+./src/goom_core.c:425:                            - goom_irand(goomInfo->gRandom,5);
+./src/goom_core.c:426:                            goomInfo->update.zoomFilterData.hPlaneEffect = -goomInfo->update.zoomFilterData.vPlaneEffect;
+./src/goom_core.c:429:                            goomInfo->update.zoomFilterData.hPlaneEffect = 5 + goom_irand(goomInfo->gRandom,8);
+./src/goom_core.c:430:                            goomInfo->update.zoomFilterData.vPlaneEffect = -goomInfo->update.zoomFilterData.hPlaneEffect;
+./src/goom_core.c:433:                            goomInfo->update.zoomFilterData.vPlaneEffect = 5 + goom_irand(goomInfo->gRandom,8);
+./src/goom_core.c:434:                            goomInfo->update.zoomFilterData.hPlaneEffect = -goomInfo->update.zoomFilterData.hPlaneEffect;
+./src/goom_core.c:437:                            goomInfo->update.zoomFilterData.hPlaneEffect = 0;
+./src/goom_core.c:438:                            goomInfo->update.zoomFilterData.vPlaneEffect = goom_irand(goomInfo->gRandom,10)
+./src/goom_core.c:439:                                - goom_irand(goomInfo->gRandom,10);
+./src/goom_core.c:442:                            goomInfo->update.zoomFilterData.hPlaneEffect = goom_irand(goomInfo->gRandom,10)
+./src/goom_core.c:443:                            - goom_irand(goomInfo->gRandom,10);
+./src/goom_core.c:444:                            goomInfo->update.zoomFilterData.vPlaneEffect = goom_irand(goomInfo->gRandom,10)
+./src/goom_core.c:445:                                - goom_irand(goomInfo->gRandom,10);
+./src/goom_core.c:449:                                goomInfo->update.zoomFilterData.vPlaneEffect = 0;
+./src/goom_core.c:450:                                goomInfo->update.zoomFilterData.hPlaneEffect = 0;
+./src/goom_core.c:454:                    if (goom_irand(goomInfo->gRandom,5) != 0)
+./src/goom_core.c:455:                        goomInfo->update.zoomFilterData.noisify = 0;
+./src/goom_core.c:457:                        goomInfo->update.zoomFilterData.noisify = goom_irand(goomInfo->gRandom,2) + 1;
+./src/goom_core.c:458:                        goomInfo->update.lockvar *= 2;
+./src/goom_core.c:461:                    if (goomInfo->update.zoomFilterData.mode == AMULETTE_MODE) {
+./src/goom_core.c:462:                        goomInfo->update.zoomFilterData.vPlaneEffect = 0;
+./src/goom_core.c:463:                        goomInfo->update.zoomFilterData.hPlaneEffect = 0;
+./src/goom_core.c:464:                        goomInfo->update.zoomFilterData.noisify = 0;
+./src/goom_core.c:467:                    if ((goomInfo->update.zoomFilterData.middleX == 1) || (goomInfo->update.zoomFilterData.middleX == (signed int)goomInfo->screen.width - 1)) {
+./src/goom_core.c:468:                        goomInfo->update.zoomFilterData.vPlaneEffect = 0;
+./src/goom_core.c:469:                        if (goom_irand(goomInfo->gRandom,2))
+./src/goom_core.c:470:                            goomInfo->update.zoomFilterData.hPlaneEffect = 0;
+./src/goom_core.c:473:                    if ((signed int)newvit < goomInfo->update.zoomFilterData.vitesse)	/* on accelere */
+./src/goom_core.c:475:                        pzfd = &goomInfo->update.zoomFilterData;
+./src/goom_core.c:477:                             (goomInfo->update.zoomFilterData.vitesse < STOP_SPEED - 6) &&
+./src/goom_core.c:478:                             (goomInfo->cycle % 3 == 0)) || (goom_irand(goomInfo->gRandom,40) == 0)) {
+./src/goom_core.c:479:                            goomInfo->update.zoomFilterData.vitesse = STOP_SPEED - goom_irand(goomInfo->gRandom,2)
+./src/goom_core.c:480:                            + goom_irand(goomInfo->gRandom,2);
+./src/goom_core.c:481:                            goomInfo->update.zoomFilterData.reverse = !goomInfo->update.zoomFilterData.reverse;
+./src/goom_core.c:484:                            goomInfo->update.zoomFilterData.vitesse = (newvit + goomInfo->update.zoomFilterData.vitesse * 7) / 8;
+./src/goom_core.c:486:                        goomInfo->update.lockvar += 50;
+./src/goom_core.c:490:                if (goomInfo->update.lockvar > 150) {
+./src/goom_core.c:491:                    goomInfo->update.switchIncr = goomInfo->update.switchIncrAmount;
+./src/goom_core.c:492:                    goomInfo->update.switchMult = 1.0f;
+./src/goom_core.c:496:            if (goom_irand(goomInfo->gRandom,700) == 0) {
+./src/goom_core.c:500:                pzfd = &goomInfo->update.zoomFilterData;
+./src/goom_core.c:501:                goomInfo->update.zoomFilterData.vitesse = STOP_SPEED - 1;
+./src/goom_core.c:502:                goomInfo->update.zoomFilterData.pertedec = 8;
+./src/goom_core.c:503:                goomInfo->update.zoomFilterData.sqrtperte = 16;
+./src/goom_core.c:504:                goomInfo->update.goomvar = 1;
+./src/goom_core.c:505:                goomInfo->update.lockvar += 50;
+./src/goom_core.c:506:                goomInfo->update.switchIncr = goomInfo->update.switchIncrAmount;
+./src/goom_core.c:507:                goomInfo->update.switchMult = 1.0f;
+./src/goom_core.c:514:        if ((goomInfo->sound.speedvar < 0.01f)
+./src/goom_core.c:515:            && (goomInfo->update.zoomFilterData.vitesse < STOP_SPEED - 4)
+./src/goom_core.c:516:            && (goomInfo->cycle % 16 == 0)) {
+./src/goom_core.c:517:            pzfd = &goomInfo->update.zoomFilterData;
+./src/goom_core.c:518:            goomInfo->update.zoomFilterData.vitesse += 3;
+./src/goom_core.c:519:            goomInfo->update.zoomFilterData.pertedec = 8;
+./src/goom_core.c:520:            goomInfo->update.zoomFilterData.sqrtperte = 16;
+./src/goom_core.c:521:            goomInfo->update.goomvar = 0;
+./src/goom_core.c:527:        if ((goomInfo->cycle % 73 == 0) && (goomInfo->update.zoomFilterData.vitesse < STOP_SPEED - 5)) {
+./src/goom_core.c:528:            pzfd = &goomInfo->update.zoomFilterData;
+./src/goom_core.c:529:            goomInfo->update.zoomFilterData.vitesse++;
+./src/goom_core.c:535:        if ((goomInfo->cycle % 101 == 0) && (goomInfo->update.zoomFilterData.pertedec == 7)) {
+./src/goom_core.c:536:            pzfd = &goomInfo->update.zoomFilterData;
+./src/goom_core.c:537:            goomInfo->update.zoomFilterData.pertedec = 8;
+./src/goom_core.c:538:            goomInfo->update.zoomFilterData.sqrtperte = 16;
+./src/goom_core.c:545:            pzfd = &goomInfo->update.zoomFilterData;
+./src/goom_core.c:559:            goomInfo->update.cyclesSinceLastChange = 0;
+./src/goom_core.c:561:            goomInfo->update.switchIncr = goomInfo->update.switchIncrAmount;
+./src/goom_core.c:563:            dif = goomInfo->update.zoomFilterData.vitesse - goomInfo->update.previousZoomSpeed;
+./src/goom_core.c:568:                goomInfo->update.switchIncr *= (dif + 2) / 2;
+./src/goom_core.c:570:            goomInfo->update.previousZoomSpeed = goomInfo->update.zoomFilterData.vitesse;
+./src/goom_core.c:571:            goomInfo->update.switchMult = 1.0f;
+./src/goom_core.c:573:            if (((goomInfo->sound.timeSinceLastGoom == 0)
+./src/goom_core.c:574:                 && (goomInfo->sound.totalgoom < 2)) || (forceMode > 0)) {
+./src/goom_core.c:575:                goomInfo->update.switchIncr = 0;
+./src/goom_core.c:576:                goomInfo->update.switchMult = goomInfo->update.switchMultAmount;
+./src/goom_core.c:580:            if (goomInfo->update.cyclesSinceLastChange > TIME_BTW_CHG) {
+./src/goom_core.c:581:                pzfd = &goomInfo->update.zoomFilterData;
+./src/goom_core.c:582:                goomInfo->update.cyclesSinceLastChange = 0;
+./src/goom_core.c:585:                goomInfo->update.cyclesSinceLastChange++;
+./src/goom_core.c:595:        zoomFilterFastRGB (goomInfo, goomInfo->p1, goomInfo->p2, pzfd, goomInfo->screen.width, goomInfo->screen.height,
+./src/goom_core.c:596:                           goomInfo->update.switchIncr, goomInfo->update.switchMult);
+./src/goom_core.c:602:        goomInfo->tentacles_fx.apply(&goomInfo->tentacles_fx, goomInfo->p1, goomInfo->p2, goomInfo);
+./src/goom_core.c:603:        goomInfo->star_fx.apply (&goomInfo->star_fx,goomInfo->p2,goomInfo->p1,goomInfo);
+./src/goom_core.c:619:                goom_draw_text (goomInfo->p1,goomInfo->screen.width,goomInfo->screen.height,
+./src/goom_core.c:627:                strncpy (goomInfo->update.titleText, songTitle, 1023);
+./src/goom_core.c:628:                goomInfo->update.titleText[1023]=0;
+./src/goom_core.c:629:                goomInfo->update.timeOfTitleDisplay = 200;
+./src/goom_core.c:632:            if (goomInfo->update.timeOfTitleDisplay) {
+./src/goom_core.c:633:                goom_draw_text (goomInfo->p1,goomInfo->screen.width,goomInfo->screen.height,
+./src/goom_core.c:634:                                goomInfo->screen.width / 2, goomInfo->screen.height / 2 + 7, goomInfo->update.titleText,
+./src/goom_core.c:635:                                ((float) (190 - goomInfo->update.timeOfTitleDisplay) / 10.0f), 1);
+./src/goom_core.c:636:                goomInfo->update.timeOfTitleDisplay--;
+./src/goom_core.c:637:                if (goomInfo->update.timeOfTitleDisplay < 4)
+./src/goom_core.c:638:                    goom_draw_text (goomInfo->p2,goomInfo->screen.width,goomInfo->screen.height,
+./src/goom_core.c:639:                                    goomInfo->screen.width / 2, goomInfo->screen.height / 2 + 7, goomInfo->update.titleText,
+./src/goom_core.c:640:                                    ((float) (190 - goomInfo->update.timeOfTitleDisplay) / 10.0f), 1);
+./src/goom_core.c:651:        if ((goomInfo->update.stop_lines & 0xf000)||(!goomInfo->curGState->drawScope)) {
+./src/goom_core.c:659:            goom_lines_switch_to (goomInfo->gmline1, mode, param1, amplitude, couleur);
+./src/goom_core.c:660:            goom_lines_switch_to (goomInfo->gmline2, mode, param2, amplitude, couleur);
+./src/goom_core.c:661:            goomInfo->update.stop_lines &= 0x0fff;
+./src/goom_core.c:667:        if (goomInfo->update.lineMode != goomInfo->update.drawLinesDuration) {
+./src/goom_core.c:668:            goomInfo->update.lineMode--;
+./src/goom_core.c:669:            if (goomInfo->update.lineMode == -1)
+./src/goom_core.c:670:                goomInfo->update.lineMode = 0;
+./src/goom_core.c:673:            if ((goomInfo->cycle%80==0)&&(goom_irand(goomInfo->gRandom,5)==0)&&goomInfo->update.lineMode)
+./src/goom_core.c:674:                goomInfo->update.lineMode--;
+./src/goom_core.c:676:        if ((goomInfo->cycle % 120 == 0)
+./src/goom_core.c:677:            && (goom_irand(goomInfo->gRandom,4) == 0)
+./src/goom_core.c:678:            && (goomInfo->curGState->drawScope)) {
+./src/goom_core.c:679:            if (goomInfo->update.lineMode == 0)
+./src/goom_core.c:680:                goomInfo->update.lineMode = goomInfo->update.drawLinesDuration;
+./src/goom_core.c:681:            else if (goomInfo->update.lineMode == goomInfo->update.drawLinesDuration) {
+./src/goom_core.c:686:                goomInfo->update.lineMode--;
+./src/goom_core.c:688:                                    &mode, &amplitude,goomInfo->update.stop_lines);
+./src/goom_core.c:691:                if (goomInfo->update.stop_lines) {
+./src/goom_core.c:692:                    goomInfo->update.stop_lines--;
+./src/goom_core.c:693:                    if (goom_irand(goomInfo->gRandom,2))
+./src/goom_core.c:697:                goom_lines_switch_to (goomInfo->gmline1, mode, param1, amplitude, couleur1);
+./src/goom_core.c:698:                goom_lines_switch_to (goomInfo->gmline2, mode, param2, amplitude, couleur2);
+./src/goom_core.c:705:        if ((goomInfo->update.lineMode != 0) || (goomInfo->sound.timeSinceLastGoom < 5)) {
+./src/goom_core.c:706:            goomInfo->gmline2->power = goomInfo->gmline1->power;
+./src/goom_core.c:708:            goom_lines_draw (goomInfo, goomInfo->gmline1, data[0], goomInfo->p2);
+./src/goom_core.c:709:            goom_lines_draw (goomInfo, goomInfo->gmline2, data[1], goomInfo->p2);
+./src/goom_core.c:711:            if (((goomInfo->cycle % 121) == 9) && (goom_irand(goomInfo->gRandom,3) == 1)
+./src/goom_core.c:712:                && ((goomInfo->update.lineMode == 0) || (goomInfo->update.lineMode == goomInfo->update.drawLinesDuration))) {
+./src/goom_core.c:718:                                    &mode, &amplitude, goomInfo->update.stop_lines);
+./src/goom_core.c:721:                if (goomInfo->update.stop_lines) {
+./src/goom_core.c:722:                    goomInfo->update.stop_lines--;
+./src/goom_core.c:723:                    if (goom_irand(goomInfo->gRandom,2))
+./src/goom_core.c:726:                goom_lines_switch_to (goomInfo->gmline1, mode, param1, amplitude, couleur1);
+./src/goom_core.c:727:                goom_lines_switch_to (goomInfo->gmline2, mode, param2, amplitude, couleur2);
+./src/goom_core.c:731:        return_val = goomInfo->p1;
+./src/goom_core.c:732:        tmp = goomInfo->p1;
+./src/goom_core.c:733:        goomInfo->p1 = goomInfo->p2;
+./src/goom_core.c:734:        goomInfo->p2 = tmp;
+./src/goom_core.c:737:        goomInfo->cycle++;
+./src/goom_core.c:739:        goomInfo->convolve_fx.apply(&goomInfo->convolve_fx,return_val,goomInfo->outputBuf,goomInfo);
+./src/goom_core.c:741:        return (guint32*)goomInfo->outputBuf;
+./src/goom_core.c:749:    if (goomInfo->pixel != NULL)
+./src/goom_core.c:750:        free (goomInfo->pixel);
+./src/goom_core.c:751:    if (goomInfo->back != NULL)
+./src/goom_core.c:752:        free (goomInfo->back);
+./src/goom_core.c:753:    if (goomInfo->conv != NULL)
+./src/goom_core.c:754:        free (goomInfo->conv);
+./src/goom_core.c:756:    goomInfo->pixel = goomInfo->back = NULL;
+./src/goom_core.c:757:    goomInfo->conv = NULL;
+./src/goom_core.c:758:    goom_random_free(goomInfo->gRandom);
+./src/goom_core.c:759:    goom_lines_free (&goomInfo->gmline1);
+./src/goom_core.c:760:    goom_lines_free (&goomInfo->gmline2);
+./src/goom_core.c:763:    goomInfo->ifs_fx.free(&goomInfo->ifs_fx);
+./src/goom_core.c:764:    goomInfo->convolve_fx.free(&goomInfo->convolve_fx);
+./src/goom_core.c:765:    goomInfo->star_fx.free(&goomInfo->star_fx);
+./src/goom_core.c:766:    goomInfo->tentacles_fx.free(&goomInfo->tentacles_fx);
+./src/goom_core.c:767:    goomInfo->zoomFilter_fx.free(&goomInfo->zoomFilter_fx);
+./src/goom_core.c:778:    *mode = goom_irand(goomInfo->gRandom,3);
+./src/goom_core.c:787:            if (goom_irand(goomInfo->gRandom,3) == 0) {
+./src/goom_core.c:791:            else if (goom_irand(goomInfo->gRandom,2)) {
+./src/goom_core.c:792:                *param1 = 0.40f * goomInfo->screen.height;
+./src/goom_core.c:793:                *param2 = 0.22f * goomInfo->screen.height;
+./src/goom_core.c:796:                *param1 = *param2 = goomInfo->screen.height * 0.35;
+./src/goom_core.c:800:            if (goom_irand(goomInfo->gRandom,4) || far) {
+./src/goom_core.c:801:                *param1 = goomInfo->screen.height / 7;
+./src/goom_core.c:802:                *param2 = 6.0f * goomInfo->screen.height / 7.0f;
+./src/goom_core.c:805:                *param1 = *param2 = goomInfo->screen.height / 2.0f;
+./src/goom_core.c:810:            if (goom_irand(goomInfo->gRandom,3) || far) {
+./src/goom_core.c:811:                *param1 = goomInfo->screen.width / 7.0f;
+./src/goom_core.c:812:                *param2 = 6.0f * goomInfo->screen.width / 7.0f;
+./src/goom_core.c:815:                *param1 = *param2 = goomInfo->screen.width / 2.0f;
+./src/goom_core.c:821:    *couleur = goom_irand(goomInfo->gRandom,6);
+./src/goom_core.c:837:        sprintf (goomInfo->update_message.message, message);
+./src/goom_core.c:838:        for (j=0;goomInfo->update_message.message[j];j++)
+./src/goom_core.c:839:            if (goomInfo->update_message.message[j]=='\n')
+./src/goom_core.c:841:        goomInfo->update_message.numberOfLinesInMessage = i;
+./src/goom_core.c:842:        goomInfo->update_message.affiche = goomInfo->screen.height + goomInfo->update_message.numberOfLinesInMessage * 25 + 105;
+./src/goom_core.c:843:        goomInfo->update_message.longueur = strlen(goomInfo->update_message.message);
+./src/goom_core.c:845:    if (goomInfo->update_message.affiche) {
+./src/goom_core.c:847:        char *msg = malloc(goomInfo->update_message.longueur + 1);
+./src/goom_core.c:852:        sprintf (msg, goomInfo->update_message.message);
+./src/goom_core.c:866:            pos = goomInfo->update_message.affiche - (goomInfo->update_message.numberOfLinesInMessage - i)*25;
+./src/goom_core.c:870:            if ((fin) && (2 * pos < (int)goomInfo->screen.height))
+./src/goom_core.c:871:                pos = (int)goomInfo->screen.height / 2;
+./src/goom_core.c:874:            goom_draw_text(goomInfo->p1,goomInfo->screen.width,goomInfo->screen.height,
+./src/goom_core.c:875:                           goomInfo->screen.width/2, pos,
+./src/goom_core.c:882:        goomInfo->update_message.affiche --;
+./src/ifs.c:71:#define LRAND()            ((long) (goom_random(goomInfo->gRandom) & 0x7fffffff))
+./src/ifs.c:214:	int width = goomInfo->screen.width;
+./src/ifs.c:215:	int height = goomInfo->screen.height;
+./src/ifs.c:468:#define RAND() goom_random(goomInfo->gRandom)
+./src/ifs.c:489:	int width = goomInfo->screen.width;
+./src/ifs.c:490:	int height = goomInfo->screen.height;
+./src/ifs.c:739:	ifs_update (goomInfo, dest, src, goomInfo->update.ifs_incr, data);
+./src/lines.c:142:		l->powinc = (float) (goom_irand(l->goomInfo->gRandom,20) + 10) / 300.0f;
+./src/lines.c:146:		l->powinc = -(float) (goom_irand(l->goomInfo->gRandom,20) + 10) / 300.0f;
+./src/tentacle3d.c:85:    tentacle_update(goomInfo, dest, src, goomInfo->screen.width,
+./src/tentacle3d.c:86:                    goomInfo->screen.height, goomInfo->sound.samples,
+./src/tentacle3d.c:87:                    (float)goomInfo->sound.accelvar,
+./src/tentacle3d.c:88:                    goomInfo->curGState->drawTentacle, data);
+./src/tentacle3d.c:187:		fx_data->happens = goom_irand(goomInfo->gRandom,200)?0:100+goom_irand(goomInfo->gRandom,60);
+./src/tentacle3d.c:205:		fx_data->rotation = goom_irand(goomInfo->gRandom,500)?fx_data->rotation:goom_irand(goomInfo->gRandom,2);
+./src/tentacle3d.c:248:		if ((fx_data->lig<6.3f)&&(goom_irand(goomInfo->gRandom,30)==0))
+./src/tentacle3d.c:249:			fx_data->dstcol=goom_irand(goomInfo->gRandom,NB_TENTACLE_COLORS);
+./src/tentacle3d.c:271:				float val = (float)(ShiftRight(data[0][goom_irand(goomInfo->gRandom,511)],10)) * rapport;

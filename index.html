@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Goom On-Line</title>
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+				padding: 0;
+				margin: 0;
+				background-color:#000;
+			}
+			#drop {
+				display: none;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				background: #657f98;
+				opacity: 0.7;
+			}
+			#drop div {
+				display: table-cell;
+				width: 100vw;
+				height: 100vh;
+				text-align: center;
+				vertical-align: middle;
+				font: 5em sans-serif;
+			}
+			#canvas {
+				display: block;
+				width: 100%;
+				height: 100%;
+				image-rendering: pixelated;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="drop"><div>💿</div></div>
+		<canvas id="canvas" tabindex="-1"></canvas>
+		<script type='text/javascript'>
+			var Module = {
+				canvas: document.getElementById("canvas"),
+			};
+			if(!window.AudioContext) window.AudioContext = window.webkitAudioContext;
+			var audioContext;
+			function playFile(file) {
+				let reader = new FileReader();
+				reader.onload = function(e) {
+					audioContext.decodeAudioData(e.target.result, function(buffer) {
+						if(audioContext.source) audioContext.source.stop();
+						audioContext.source = audioContext.createBufferSource();
+						audioContext.source.loop = true;
+						audioContext.source.connect(audioContext.destination);
+						if(audioContext.source.channelCount > 1) {
+							audioContext.splitter = audioContext.createChannelSplitter(2);
+							audioContext.source.connect(audioContext.splitter);
+							audioContext.splitter.connect(audioContext.leftAnalyser, 0, 0);
+            				audioContext.splitter.connect(audioContext.rightAnalyser, 1, 0);
+						} else {
+							audioContext.source.connect(audioContext.leftAnalyser);
+						}
+						audioContext.source.buffer = buffer;
+						audioContext.source.start();
+					});
+				};
+				reader.readAsArrayBuffer(file);
+			}
+			function showDrop(e) {
+				e.preventDefault();
+				document.getElementById("drop").style.display = "block";
+				e.dataTransfer.dropEffect = "copy";
+			}
+			function hideDrop(e) {
+				document.getElementById("drop").style.display = "none";
+			}
+			function drop(e) {
+				e.preventDefault();
+				if(!audioContext) {
+					audioContext = new window.AudioContext();
+					audioContext.leftAnalyser = audioContext.createAnalyser();
+					audioContext.rightAnalyser = audioContext.createAnalyser();
+					audioContext.leftAnalyser.fftSize = 512;
+					audioContext.rightAnalyser.fftSize = 512;
+				}
+				hideDrop();
+				if(e.dataTransfer.files.length == 1) {
+					playFile(e.dataTransfer.files[0]);
+				}
+			}
+			window.addEventListener("dragenter", showDrop);
+			window.addEventListener("dragover", showDrop);
+			window.addEventListener("drop", drop);
+			document.getElementById("drop").addEventListener("dragleave", hideDrop);
+		</script>
+		<script src="GoomOnline.js"></script>
+	</body>
+</html>
