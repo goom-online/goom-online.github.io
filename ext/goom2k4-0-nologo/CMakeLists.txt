@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-project(GoomOnline)
-
-include(ExternalProject)
+project(goom)
 
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE Release)
@@ -23,9 +21,5 @@ endif()
 if(NOT DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
-
-#ExternalProject_Add(goom BUILD_ALWAYS true PREFIX ${CMAKE_BINARY_DIR}/ext/goom2k4-0-nologo SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ext/goom2k4-0-nologo CONFIGURE_COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/ext/goom2k4-0-nologo/configure --prefix ${CMAKE_BINARY_DIR}/ext/goom2k4-0-nologo BUILD_COMMAND ${CMAKE_MAKE_PROGRAM} CFLAGS=-O3\ -DNDEBUG\ -ffast-math\ -flto)
-
-add_subdirectory(ext/goom2k4-0-nologo)
 
 add_subdirectory(src)
