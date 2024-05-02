@@ -37,28 +37,37 @@
 		</style>
 	</head>
 	<body>
+		<input id="file" type="file" style="display:none"/>
 		<div id="drop"><div>💿</div></div>
-		<canvas id="canvas" tabindex="-1"></canvas>
-		<script type='text/javascript'>
+		<a id="a" style="cursor:default" draggable="false" onclick="askForFile(event)">
+			<canvas id="canvas" tabindex="-1"></canvas>
+		</a>
+		<script type="text/javascript">
 			var Module = {
 				canvas: document.getElementById("canvas"),
 			};
 			if(!window.AudioContext) window.AudioContext = window.webkitAudioContext;
 			var audioContext;
-			function playFile(file) {
+			function playFile(file)
+			{
 				let reader = new FileReader();
-				reader.onload = function(e) {
-					audioContext.decodeAudioData(e.target.result, function(buffer) {
+				reader.onload = function(e)
+				{
+					audioContext.decodeAudioData(e.target.result, function(buffer)
+					{
 						if(audioContext.source) audioContext.source.stop();
 						audioContext.source = audioContext.createBufferSource();
 						audioContext.source.loop = true;
 						audioContext.source.connect(audioContext.destination);
-						if(audioContext.source.channelCount > 1) {
+						if(buffer.numberOfChannels == 2)
+						{
 							audioContext.splitter = audioContext.createChannelSplitter(2);
 							audioContext.source.connect(audioContext.splitter);
 							audioContext.splitter.connect(audioContext.leftAnalyser, 0, 0);
             				audioContext.splitter.connect(audioContext.rightAnalyser, 1, 0);
-						} else {
+						}
+						else
+						{
 							audioContext.source.connect(audioContext.leftAnalyser);
 						}
 						audioContext.source.buffer = buffer;
@@ -67,32 +76,69 @@
 				};
 				reader.readAsArrayBuffer(file);
 			}
-			function showDrop(e) {
+			function showDrop(e)
+			{
 				e.preventDefault();
 				document.getElementById("drop").style.display = "block";
 				e.dataTransfer.dropEffect = "copy";
 			}
-			function hideDrop(e) {
+			function hideDrop(e)
+			{
 				document.getElementById("drop").style.display = "none";
 			}
-			function drop(e) {
+			function drop(e)
+			{
 				e.preventDefault();
-				if(!audioContext) {
+				hideDrop();
+				if(e.dataTransfer.files.length == 1)
+				{
+					openFile(e.dataTransfer.files[0]);
+				}
+			}
+			function toggleFullscreen()
+			{
+				if(Module.fileTimeout) clearTimeout(Module.fileTimeout);
+				if(!document.fullscreenElement)
+				{
+					document.documentElement.requestFullscreen();
+				}
+				else if(document.exitFullscreen)
+				{
+					document.exitFullscreen();
+				}
+			}
+			function openFile(file)
+			{
+				if(!audioContext)
+				{
 					audioContext = new window.AudioContext();
 					audioContext.leftAnalyser = audioContext.createAnalyser();
 					audioContext.rightAnalyser = audioContext.createAnalyser();
 					audioContext.leftAnalyser.fftSize = 512;
 					audioContext.rightAnalyser.fftSize = 512;
 				}
-				hideDrop();
-				if(e.dataTransfer.files.length == 1) {
-					playFile(e.dataTransfer.files[0]);
-				}
+				playFile(file);
+			}
+			function askForFile(e)
+			{
+				e.preventDefault();
+				if(Module.fileTimeout) clearTimeout(Module.fileTimeout);
+				Module.fileTimeout = setTimeout(function()
+				{
+					let input = document.createElement("input");
+					input.type = "file";
+					input.onchange = function()
+					{
+						openFile(input.files[0]);
+					};
+					input.click();
+				}, 300);
 			}
 			window.addEventListener("dragenter", showDrop);
 			window.addEventListener("dragover", showDrop);
 			window.addEventListener("drop", drop);
 			document.getElementById("drop").addEventListener("dragleave", hideDrop);
+			document.getElementById("a").addEventListener("dblclick", toggleFullscreen);
 		</script>
 		<script src="GoomOnline.js"></script>
 	</body>

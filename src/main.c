@@ -13,7 +13,6 @@ uint8_t canvasData[800*800*4] = {0};
 PluginInfo* goom;
 float floatVoice[2][512] = {{0}, {0}};
 gint16 voice[2][512] = {{0}, {0}};
-size_t voiceCount;
 
 EM_JS(int, getRealWidth, (), { return Module.canvas.clientWidth; });
 
@@ -26,16 +25,19 @@ EM_JS(void, syncDataPointers, (int width, int height, uint8_t* imageData, float*
 });
 
 EM_JS(void, drawToCanvas, (int width, int height), {
-	Module.canvas.getContext("2d").putImageData(Module.imageData, width / 2 - 400, height / 2 - 400, 400 - width / 2, 400 - height / 2, width, height);
+	Module.canvas.getContext("2d", {alpha: false}).putImageData(Module.imageData, width / 2 - 400, height / 2 - 400, 400 - width / 2, 400 - height / 2, width, height);
 });
 
 EM_JS(size_t, getVoiceData, (), {
-	if(audioContext && audioContext.source) {
+	if(audioContext && audioContext.source && audioContext.source.buffer)
+	{
 		audioContext.leftAnalyser.getFloatTimeDomainData(Module.leftVoice);
-		if(audioContext.source.channelCount > 1) {
+		if(audioContext.source.buffer.numberOfChannels == 2)
+		{
 			audioContext.rightAnalyser.getFloatTimeDomainData(Module.rightVoice);
+			return 2;
 		}
-		return audioContext.source.channelCount;
+		return 1;
 	}
 	return 0;
 });
@@ -67,25 +69,28 @@ static EM_BOOL onWindowResize(int eventType, const EmscriptenUiEvent* event, voi
 
 static EM_BOOL onFrame(double time, void* userData)
 {
-	voiceCount = getVoiceData();
+	size_t voiceCount = getVoiceData();
 	
-	for(size_t i = 0; i < 2; i++)
+	if(voiceCount)
 	{
-		size_t j = i;
-		if(i > voiceCount) j = voiceCount - 1;
-		for(size_t k = 0; k < 512; k++)
+		for(size_t i = 0; i < 2; i++)
 		{
-			if(floatVoice[j][k] >= 1.0f)
+			size_t j = i;
+			if(voiceCount == 1) j = 0;
+			for(size_t k = 0; k < 512; k++)
 			{
-				voice[i][k] = 32767;
-			}
-			else if(floatVoice[j][k] < -1.0f)
-			{
-				voice[i][k] = -32768;
-			}
-			else
-			{
-				voice[i][k] = (gint16) (floatVoice[j][k] * 32768.0f);
+				if(floatVoice[j][k] >= 1.0f)
+				{
+					voice[i][k] = 32767;
+				}
+				else if(floatVoice[j][k] < -1.0f)
+				{
+					voice[i][k] = -32768;
+				}
+				else
+				{
+					voice[i][k] = (gint16) (floatVoice[j][k] * 32768.0f);
+				}
 			}
 		}
 	}
