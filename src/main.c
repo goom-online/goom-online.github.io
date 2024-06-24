@@ -1,6 +1,8 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
@@ -18,17 +20,20 @@ EM_JS(int, getRealWidth, (), { return Module.canvas.clientWidth; });
 
 EM_JS(int, getRealHeight, (), { return Module.canvas.clientHeight; });
 
-EM_JS(void, syncDataPointers, (int width, int height, uint8_t* imageData, float* leftVoice, float* rightVoice), {
+EM_JS(void, syncDataPointers, (int width, int height, uint8_t* imageData, float* leftVoice, float* rightVoice),
+{
 	Module.imageData = new ImageData(new Uint8ClampedArray(Module.HEAPU8.buffer, imageData, width * height * 4), width, height);
 	Module.leftVoice = new Float32Array(Module.HEAPF32.buffer, leftVoice, 512);
 	Module.rightVoice = new Float32Array(Module.HEAPF32.buffer, rightVoice, 512);
 });
 
-EM_JS(void, drawToCanvas, (int width, int height), {
+EM_JS(void, drawToCanvas, (int width, int height),
+{
 	Module.canvas.getContext("2d", {alpha: false}).putImageData(Module.imageData, width / 2 - 400, height / 2 - 400, 400 - width / 2, 400 - height / 2, width, height);
 });
 
-EM_JS(size_t, getVoiceData, (), {
+EM_JS(size_t, getVoiceData, (),
+{
 	if(audioContext && audioContext.source && audioContext.source.buffer)
 	{
 		audioContext.leftAnalyser.getFloatTimeDomainData(Module.leftVoice);
@@ -105,8 +110,16 @@ static EM_BOOL onFrame(double time, void* userData)
 
 int main(void)
 {
+	srand(time(NULL));
 	goom = goom_init((guint32) canvasWidth, (guint32) canvasHeight);
 	if(!goom_set_screenbuffer(goom, (void*) canvasData)) return 1; //why does changing `return 1` to `printf("uh oh...\n")` change the generation?!
+	/*for(size_t i = 0; i < 2; i++)
+	{
+		for(size_t j = 0; j < 512; j++)
+		{
+			voice[i][j] = 
+		}
+	}*/
 	
 	syncDataPointers(canvasWidth, canvasHeight, canvasData, floatVoice[0], floatVoice[1]);
 	emscripten_set_resize_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 0, onWindowResize);

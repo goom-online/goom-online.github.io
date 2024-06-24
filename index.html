@@ -37,7 +37,6 @@
 		</style>
 	</head>
 	<body>
-		<input id="file" type="file" style="display:none"/>
 		<div id="drop"><div>💿</div></div>
 		<a id="a" style="cursor:default" draggable="false" onclick="askForFile(event)">
 			<canvas id="canvas" tabindex="-1"></canvas>
@@ -127,6 +126,7 @@
 				{
 					let input = document.createElement("input");
 					input.type = "file";
+					input.accept = "audio/*, video/*";
 					input.onchange = function()
 					{
 						openFile(input.files[0]);
@@ -134,11 +134,21 @@
 					input.click();
 				}, 300);
 			}
+			function timeoutCursor(e)
+			{
+				document.getElementById("canvas").style.cursor = "auto";
+				if(Module.cursorTimeout) clearTimeout(Module.cursorTimeout);
+				Module.cursorTimeout = setTimeout(function()
+				{
+					document.getElementById("canvas").style.cursor = "none";
+				}, 3000);
+			}
 			window.addEventListener("dragenter", showDrop);
 			window.addEventListener("dragover", showDrop);
 			window.addEventListener("drop", drop);
 			document.getElementById("drop").addEventListener("dragleave", hideDrop);
 			document.getElementById("a").addEventListener("dblclick", toggleFullscreen);
+			document.getElementById("canvas").addEventListener("mousemove", timeoutCursor);
 		</script>
 		<script src="GoomOnline.js"></script>
 	</body>
