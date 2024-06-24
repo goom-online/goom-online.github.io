@@ -176,6 +176,8 @@
 						{
 							audioContext.source.stop();
 							delete audioContext.source;
+							resetDrop();
+							return;
 						}
 					}
 					resetDrop();
