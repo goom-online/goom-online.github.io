@@ -20,7 +20,9 @@
 
 # License
 
-LGPL. Like the original - see [ext/goom2k4-0-nologo/COPYING](https://github.com/goom-online/goom-online.github.io/blob/main/ext/goom2k4-0-nologo/COPYING).
+LGPL, like the original - see [ext/goom2k4-0-nologo/COPYING](https://github.com/goom-online/goom-online.github.io/blob/main/ext/goom2k4-0-nologo/COPYING).
+
+The fonts are bundled under their respective licenses, which are available for reading in the subdirectories containing them.
 
 # Donations
 
