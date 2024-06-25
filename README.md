@@ -25,6 +25,8 @@ This is probably how music visualizers lost their momentum in the first place...
 
 For something slightly different but more specific, I am somewhat fond of pairing the visualizer with procedurally-generated ambient music, they fit well together; an artist by the name of Alex Bainter has created [a library of such music pieces that you may make recordings of, for free - and there are also pre-recorded excerpts!](https://play.generative.fm/browse)
 
+And if classical music is your thing (don't discount it without trying!), [there is a high-quality collection available for download, purchased for release into the public domain by Musopen, right here!](https://archive.org/details/MusopenCollectionAsFlac)
+
 # Building
 
 You need a working Emscripten toolchain, CMake and the Ninja build tool in your PATH. Then just execute:
